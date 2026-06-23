@@ -1,0 +1,26 @@
+#include <tunables/global>
+
+profile threadfin flags=(attach_disconnected,mediate_deleted) {
+  #include <abstractions/base>
+
+  # O Threadfin serve a interface web e faz proxy dos streams de TV em direto
+  # na rede do anfitrião (host_network), por isso precisa de acesso amplo a
+  # rede e capabilities.
+  network,
+  capability,
+  signal,
+  mount,
+  umount,
+  remount,
+  pivot_root,
+
+  # Acesso a ficheiros.
+  # O binário do Threadfin vem da imagem upstream (fyb3roptik/threadfin), cujo
+  # layout interno nao esta fixado aqui, e o run.sh tambem chama sh/jq. Por isso
+  # permitimos execucao a partir da imagem e leitura/escrita em /data (config
+  # persistente), em vez de enumerar caminhos absolutos frageis que poderiam
+  # impedir o arranque do add-on.
+  /run.sh r,
+  / r,
+  /** rwlkix,
+}
