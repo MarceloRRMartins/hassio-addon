@@ -18,7 +18,7 @@ mkdir -p "${THREADFIN_CONF}" "${THREADFIN_TEMP}" "${THREADFIN_CACHE}"
 # interfaces do container); o IP exposto é controlado pelo port mapping do HA.
 SETTINGS_FILE="${THREADFIN_CONF}/settings.json"
 if [ -f "${SETTINGS_FILE}" ]; then
-  jq '.bindIp = ""' "${SETTINGS_FILE}" > "${SETTINGS_FILE}.tmp" \
+  jq '.bindIpAddress = ""' "${SETTINGS_FILE}" > "${SETTINGS_FILE}.tmp" \
     && mv "${SETTINGS_FILE}.tmp" "${SETTINGS_FILE}" \
     || rm -f "${SETTINGS_FILE}.tmp"
 fi
