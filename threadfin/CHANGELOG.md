@@ -2,6 +2,12 @@
 
 A versão do add-on espelha a versão do Threadfin (gerida automaticamente pelo Renovate).
 
+## 1.2.37-2
+
+- Corrige o URL da interface web: voltou a `http://` (o Threadfin serve em HTTP simples,
+  por isso o `[PROTO:ssl]` apontava para `https://` e impedia o acesso, incl. via Tailscale).
+- Mantém `host_network: true` para a descoberta na rede (DLNA/SSDP) por Jellyfin/Plex/Emby.
+
 ## 1.2.37
 
 - Versão inicial do add-on Threadfin para Home Assistant.
