@@ -18,8 +18,9 @@ mkdir -p "${THREADFIN_CONF}" "${THREADFIN_TEMP}" "${THREADFIN_CACHE}"
 # interfaces do container); o IP exposto é controlado pelo port mapping do HA.
 SETTINGS_FILE="${THREADFIN_CONF}/settings.json"
 if [ -f "${SETTINGS_FILE}" ]; then
-  CLEAN="$(jq 'if has("bindIp") then .bindIp = "" else . end' "${SETTINGS_FILE}")"
-  printf '%s' "${CLEAN}" > "${SETTINGS_FILE}"
+  jq '.bindIp = ""' "${SETTINGS_FILE}" > "${SETTINGS_FILE}.tmp" \
+    && mv "${SETTINGS_FILE}.tmp" "${SETTINGS_FILE}" \
+    || rm -f "${SETTINGS_FILE}.tmp"
 fi
 
 echo "[Threadfin] A arrancar na porta ${THREADFIN_PORT} (config: ${THREADFIN_CONF}, debug: ${DEBUG})"
