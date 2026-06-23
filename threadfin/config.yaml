@@ -8,11 +8,12 @@ arch:
   - amd64
   - armv7
 init: false
+host_network: true
 ports:
   34400/tcp: 34400
 ports_description:
   34400/tcp: Interface web do Threadfin
-webui: "http://[HOST]:[PORT:34400]/web/"
+webui: "[PROTO:ssl]://[HOST]:[PORT:34400]/web"
 options:
   debug: 0
 schema:
