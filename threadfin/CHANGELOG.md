@@ -2,19 +2,15 @@
 
 A versão do add-on espelha a versão do Threadfin (gerida automaticamente pelo Renovate).
 
-## 1.2.37-3
-
-- Adiciona perfil AppArmor (`apparmor.txt`), subindo a classificação de
-  segurança do Supervisor de 4 para 5 e ativando o badge "AppArmor".
-- Ingress não é usado de propósito: o Threadfin é consumido pelo Jellyfin/Plex
-  pela rede num URL fixo (M3U/EPG/tuner HDHomeRun), que precisa de continuar
-  acessível na porta direta `34400`, sem a autenticação da HA.
-
-## 1.2.37-2
+## 1.2.38
 
 - Corrige o URL da interface web: voltou a `http://` (o Threadfin serve em HTTP simples,
   por isso o `[PROTO:ssl]` apontava para `https://` e impedia o acesso, incl. via Tailscale).
 - Mantém `host_network: true` para a descoberta na rede (DLNA/SSDP) por Jellyfin/Plex/Emby.
+- Adiciona perfil AppArmor, subindo a classificação de segurança do Supervisor de 4 para 5.
+- Nota: a versão do add-on (1.2.38) não corresponde à versão upstream do Threadfin (1.2.37)
+  — a imagem usada é a mesma (`fyb3roptik/threadfin:1.2.37`); o bump serve para o
+  Supervisor reconhecer esta versão como mais recente que a 1.2.37 instalada.
 
 ## 1.2.37
 
