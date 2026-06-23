@@ -2,6 +2,13 @@
 
 A versão do add-on espelha a versão do Threadfin (gerida automaticamente pelo Renovate).
 
+## 1.2.39
+
+- Remove `host_network: true`: a combinação com `ports: 34400/tcp: 34400` causava
+  um conflito que impedia o Threadfin de ligar à porta 34400 (crash loop ao arrancar).
+  O port mapping padrão é suficiente — SSDP/descoberta do Jellyfin funciona na LAN
+  sem host_network.
+
 ## 1.2.38
 
 - Corrige o URL da interface web: voltou a `http://` (o Threadfin serve em HTTP simples,
