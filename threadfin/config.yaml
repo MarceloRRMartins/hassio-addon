@@ -1,5 +1,5 @@
 name: Threadfin
-version: "1.2.42"
+version: "1.2.43"
 slug: threadfin
 description: Proxy M3U e gestor de EPG para Plex DVR, Emby e Jellyfin Live TV
 url: https://github.com/Threadfin/Threadfin
@@ -8,11 +8,8 @@ arch:
   - amd64
   - armv7
 init: false
-ports:
-  34400/tcp: 34400
-ports_description:
-  34400/tcp: Interface web do Threadfin
-webui: "http://[HOST]:[PORT:34400]/web/"
+host_network: true
+webui: "http://[HOST]:34400/web/"
 options:
   debug: 0
 schema:
