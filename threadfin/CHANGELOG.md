@@ -2,6 +2,13 @@
 
 A versão do add-on espelha a versão do Threadfin (gerida automaticamente pelo Renovate).
 
+## 1.2.40
+
+- `run.sh` limpa automaticamente o campo `bindIp` do `settings.json` ao
+  arrancar — evita o crash "cannot assign requested address" quando um IP
+  do host (ex: 192.168.1.x) é gravado nas definições do Threadfin mas não
+  existe dentro do container Docker.
+
 ## 1.2.39
 
 - Remove `host_network: true`: a combinação com `ports: 34400/tcp: 34400` causava

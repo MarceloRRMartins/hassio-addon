@@ -12,6 +12,16 @@ fi
 # Garante que as pastas persistentes existem antes de arrancar.
 mkdir -p "${THREADFIN_CONF}" "${THREADFIN_TEMP}" "${THREADFIN_CACHE}"
 
+# Limpa o bindIp do settings.json — esse campo não pode ser um IP do host
+# (ex: 192.168.1.x) dentro de um container Docker sem host_network, o que
+# impede o Threadfin de arrancar. O bind é sempre 0.0.0.0 (todas as
+# interfaces do container); o IP exposto é controlado pelo port mapping do HA.
+SETTINGS_FILE="${THREADFIN_CONF}/settings.json"
+if [ -f "${SETTINGS_FILE}" ]; then
+  CLEAN="$(jq 'if has("bindIp") then .bindIp = "" else . end' "${SETTINGS_FILE}")"
+  printf '%s' "${CLEAN}" > "${SETTINGS_FILE}"
+fi
+
 echo "[Threadfin] A arrancar na porta ${THREADFIN_PORT} (config: ${THREADFIN_CONF}, debug: ${DEBUG})"
 
 exec "${THREADFIN_BIN}/threadfin" \
