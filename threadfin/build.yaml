@@ -1,0 +1,7 @@
+build_from:
+  aarch64: fyb3roptik/threadfin:1.2.37
+  amd64: fyb3roptik/threadfin:1.2.37
+  armv7: fyb3roptik/threadfin:1.2.37
+labels:
+  org.opencontainers.image.title: Threadfin
+  org.opencontainers.image.source: https://github.com/Threadfin/Threadfin
