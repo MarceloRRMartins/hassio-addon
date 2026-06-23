@@ -1,0 +1,56 @@
+name: Build
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - "threadfin/**"
+      - ".github/workflows/build.yml"
+  workflow_dispatch:
+
+jobs:
+  build:
+    name: Build & publish image
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      packages: write
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Read add-on metadata
+        id: meta
+        run: |
+          version="$(grep -E '^version:' threadfin/config.yaml \
+            | sed -E 's/^version:[[:space:]]*"?([^"]+)"?[[:space:]]*$/\1/')"
+          build_from="$(grep -E '^[[:space:]]*amd64:' threadfin/build.yaml \
+            | head -1 | awk '{print $2}')"
+          echo "version=${version}" >> "$GITHUB_OUTPUT"
+          echo "build_from=${build_from}" >> "$GITHUB_OUTPUT"
+          echo "Version: ${version} | Base: ${build_from}"
+
+      - name: Set up QEMU
+        uses: docker/setup-qemu-action@v3
+
+      - name: Set up Buildx
+        uses: docker/setup-buildx-action@v3
+
+      - name: Log in to GHCR
+        uses: docker/login-action@v3
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Build and push (amd64 / arm64 / armv7)
+        uses: docker/build-push-action@v6
+        with:
+          context: ./threadfin
+          platforms: linux/amd64,linux/arm64,linux/arm/v7
+          build-args: |
+            BUILD_FROM=${{ steps.meta.outputs.build_from }}
+          push: true
+          tags: |
+            ghcr.io/marcelorrmartins/hassio-threadfin:${{ steps.meta.outputs.version }}
+            ghcr.io/marcelorrmartins/hassio-threadfin:latest

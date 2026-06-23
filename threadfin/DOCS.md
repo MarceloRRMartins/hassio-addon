@@ -39,6 +39,24 @@ Definidas no [Dockerfile](Dockerfile) e passadas ao binário:
 | `THREADFIN_CACHE` | `/data/cache` | Cache |
 | `THREADFIN_PORT` | `34400` | Porta interna da interface web |
 
+## Instalação rápida com imagem pré-construída (opcional)
+
+Por omissão o add-on é **construído localmente** no teu HA (funciona em qualquer
+caso, sem configuração extra). Se preferires que o HA **descarregue** a imagem já
+pronta (instalação mais rápida), o CI publica-a no GHCR:
+
+1. Torna o pacote público uma vez:
+   `https://github.com/users/MarceloRRMartins/packages/container/hassio-threadfin/settings`
+   → **Change visibility** → **Public**.
+2. Adiciona ao [config.yaml](config.yaml):
+   ```yaml
+   image: "ghcr.io/marcelorrmartins/hassio-threadfin"
+   ```
+3. Reinstala/atualiza o add-on.
+
+> Para este add-on (casca fina sobre a imagem oficial) o ganho é pequeno, por
+> isso o modo local vem ativo por omissão.
+
 ## Resolução de problemas
 
 - **Não abre a UI:** confirma que o add-on está *running* nos logs e que a porta

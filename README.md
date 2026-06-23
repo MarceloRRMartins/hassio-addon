@@ -1,5 +1,8 @@
 # Marcelo's Home Assistant Add-ons
 
+![Lint](https://github.com/MarceloRRMartins/hassio-addon/actions/workflows/lint.yml/badge.svg)
+![Build](https://github.com/MarceloRRMartins/hassio-addon/actions/workflows/build.yml/badge.svg)
+
 Repositório pessoal de add-ons interessantes para o [Home Assistant](https://www.home-assistant.io/).
 
 ## Instalação

@@ -1,6 +1,8 @@
 # Changelog
 
-## 1.0.0
+A versão do add-on espelha a versão do Threadfin (gerida automaticamente pelo Renovate).
+
+## 1.2.37
 
 - Versão inicial do add-on Threadfin para Home Assistant.
 - Baseado na imagem oficial `fyb3roptik/threadfin:1.2.37` (amd64 / aarch64 / armv7).
